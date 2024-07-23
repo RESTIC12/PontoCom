@@ -10,14 +10,14 @@ import FirebaseFirestore
 import FirebaseAuth
 
 struct MainView: View {
-    @State private var horarioEntrada: Date? = nil
-    @State private var horarioSaida: Date? = nil
-    
+
     var body: some View {
         VStack {
             Spacer()
             
-            Text(Date.now, format: .dateTime)
+            Text(Date.now.formatted(date: .abbreviated, time: .omitted))
+                .font(.title)
+            Text(Date.now.formatted(date: .omitted, time: .shortened))
                 .font(.title)
             
             Spacer()
@@ -37,8 +37,6 @@ struct MainView: View {
     
     func registrarEntrada() {
         let now = Date()
-        horarioEntrada = now
-        // Salvar no Firestore
         let db = Firestore.firestore()
         db.collection("points").addDocument(data: [
             "userId": Auth.auth().currentUser?.uid ?? "",
@@ -49,8 +47,6 @@ struct MainView: View {
     
     func registrarSaida() {
            let now = Date()
-           horarioSaida = now
-           // Salvar no Firestore
            let db = Firestore.firestore()
            db.collection("points").addDocument(data: [
                "userId": Auth.auth().currentUser?.uid ?? "",
@@ -59,13 +55,6 @@ struct MainView: View {
            ])
        }
 }
-
-let dateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .short
-    return formatter
-}()
 
 #Preview {
     MainView()
