@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
-import FirebaseFirestore
-import FirebaseAuth
+import CoreLocation
 
 struct MainView: View {
+    @StateObject private var locationManager = LocationManager()
     @State private var message: String = ""
     let fu = FirebaseUtils.shared
 
@@ -25,6 +25,7 @@ struct MainView: View {
             Spacer()
             
             Text(message)
+            
             HStack {
                 BotaoView(numero: "1", texto: "Entrada", simbolo: "play", cor: .verde) {
                     registrarPonto(tipo: "entrada")
@@ -48,8 +49,14 @@ struct MainView: View {
     
     func registrarPonto(tipo: String) {
         let now = Date()
-        let latitude: Double = 0.0 // Substitua com a latitude atual
-        let longitude: Double = 0.0 // Substitua com a longitude atual
+        
+        guard let location = locationManager.userLocation else {
+            message = "Não foi possível obter a localização."
+            return
+        }
+                
+        let latitude = location.coordinate.latitude
+        let longitude = location.coordinate.longitude
         
         fu.savePointData(tipo: tipo, horario: now, latitude: latitude, longitude: longitude) { result in
             switch result {

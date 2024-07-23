@@ -11,7 +11,6 @@
 		3C2FEDE52C4B24F100A925A9 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2FEDE42C4B24F100A925A9 /* MainView.swift */; };
 		3C2FEDE72C4B252B00A925A9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3C2FEDE62C4B252B00A925A9 /* FirebaseFirestore */; };
 		3C46480C2C4B163A00B914D3 /* PontoComApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C46480B2C4B163A00B914D3 /* PontoComApp.swift */; };
-		3C46480E2C4B163A00B914D3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C46480D2C4B163A00B914D3 /* ContentView.swift */; };
 		3C4648102C4B163C00B914D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C46480F2C4B163C00B914D3 /* Assets.xcassets */; };
 		3C4648132C4B163C00B914D3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C4648122C4B163C00B914D3 /* Preview Assets.xcassets */; };
 		3C46481A2C4B166600B914D3 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4648192C4B166600B914D3 /* LoginView.swift */; };
@@ -19,13 +18,14 @@
 		3C46482A2C4B20E700B914D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4648292C4B20E700B914D3 /* AppDelegate.swift */; };
 		3CA0F5E02C4F06C000E49629 /* BotaoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA0F5DF2C4F06C000E49629 /* BotaoView.swift */; };
 		3CB473FB2C505340000B64BA /* FirebaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB473FA2C505340000B64BA /* FirebaseUtils.swift */; };
+		3CB473FE2C5067A7000B64BA /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB473FD2C5067A7000B64BA /* LocationManager.swift */; };
+		3CB474012C506B2E000B64BA /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB474002C506B2E000B64BA /* RootView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3C2FEDE42C4B24F100A925A9 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		3C4648082C4B163A00B914D3 /* PontoCom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PontoCom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C46480B2C4B163A00B914D3 /* PontoComApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PontoComApp.swift; sourceTree = "<group>"; };
-		3C46480D2C4B163A00B914D3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3C46480F2C4B163C00B914D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3C4648122C4B163C00B914D3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3C4648192C4B166600B914D3 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -33,6 +33,8 @@
 		3C4648292C4B20E700B914D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CA0F5DF2C4F06C000E49629 /* BotaoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotaoView.swift; sourceTree = "<group>"; };
 		3CB473FA2C505340000B64BA /* FirebaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUtils.swift; sourceTree = "<group>"; };
+		3CB473FD2C5067A7000B64BA /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		3CB474002C506B2E000B64BA /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,9 +78,8 @@
 			isa = PBXGroup;
 			children = (
 				3C46480B2C4B163A00B914D3 /* PontoComApp.swift */,
-				3C4648292C4B20E700B914D3 /* AppDelegate.swift */,
-				3CB473FA2C505340000B64BA /* FirebaseUtils.swift */,
 				3C93EE2F2C4F026A007886A4 /* View */,
+				3CB473FF2C5067AC000B64BA /* Utils */,
 				3C46480F2C4B163C00B914D3 /* Assets.xcassets */,
 				3C4648232C4B1F3100B914D3 /* GoogleService-Info.plist */,
 				3C4648112C4B163C00B914D3 /* Preview Content */,
@@ -97,12 +98,22 @@
 		3C93EE2F2C4F026A007886A4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3C46480D2C4B163A00B914D3 /* ContentView.swift */,
+				3CB474002C506B2E000B64BA /* RootView.swift */,
 				3C4648192C4B166600B914D3 /* LoginView.swift */,
 				3C2FEDE42C4B24F100A925A9 /* MainView.swift */,
 				3CA0F5DF2C4F06C000E49629 /* BotaoView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		3CB473FF2C5067AC000B64BA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3C4648292C4B20E700B914D3 /* AppDelegate.swift */,
+				3CB473FA2C505340000B64BA /* FirebaseUtils.swift */,
+				3CB473FD2C5067A7000B64BA /* LocationManager.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,7 +197,8 @@
 				3C46482A2C4B20E700B914D3 /* AppDelegate.swift in Sources */,
 				3C46481A2C4B166600B914D3 /* LoginView.swift in Sources */,
 				3CA0F5E02C4F06C000E49629 /* BotaoView.swift in Sources */,
-				3C46480E2C4B163A00B914D3 /* ContentView.swift in Sources */,
+				3CB473FE2C5067A7000B64BA /* LocationManager.swift in Sources */,
+				3CB474012C506B2E000B64BA /* RootView.swift in Sources */,
 				3C2FEDE52C4B24F100A925A9 /* MainView.swift in Sources */,
 				3CB473FB2C505340000B64BA /* FirebaseUtils.swift in Sources */,
 				3C46480C2C4B163A00B914D3 /* PontoComApp.swift in Sources */,
