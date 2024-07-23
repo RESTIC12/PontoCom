@@ -12,12 +12,12 @@ struct BotaoView: View {
     var texto: String
     var simbolo: String
     var cor: Color
+    var action: () -> Void
     
     var body: some View {
         Button {
-            
+            action()
         } label: {
-                    
             VStack(alignment: .center) {
                 HStack {
                     Text(numero)
@@ -48,5 +48,12 @@ struct BotaoView: View {
 }
 
 #Preview {
-    BotaoView(numero: "1", texto: "Entrada", simbolo: "play", cor: .verde)
+    HStack {
+        BotaoView(numero: "1", texto: "Entrada", simbolo: "play", cor: .verde) {
+            
+        }
+        BotaoView(numero: "2", texto: "Saída", simbolo: "stop", cor: .vermelho) {
+            
+        }
+    }.padding()
 }

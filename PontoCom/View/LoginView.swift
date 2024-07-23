@@ -13,6 +13,8 @@ struct LoginView: View {
     @State private var password = ""
     @State private var errorMessage = ""
     
+    let fu = FirebaseUtils.shared
+    
     var body: some View {
         VStack {
             Group {
@@ -28,7 +30,14 @@ struct LoginView: View {
                 .padding(.bottom)
             
             Button(action: {
-//                login()
+                fu.login(email: email, password: password) { result in
+                    switch result {
+                    case .success(let user):
+                        print("Logged in as \(user.email ?? "")")
+                    case .failure(let error):
+                        errorMessage = error.localizedDescription
+                    }
+                }
                 
             }) {
                 Text("Login")
@@ -41,15 +50,6 @@ struct LoginView: View {
                 .foregroundColor(.red)
         }
         .padding()
-    }
-    
-    func login() {
-        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-            if let error = error {
-                errorMessage = error.localizedDescription
-                return
-            }
-        }
     }
 }
 
