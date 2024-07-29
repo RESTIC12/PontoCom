@@ -54,6 +54,11 @@ struct MainView: View {
             message = "Não foi possível obter a localização."
             return
         }
+        
+        guard allowedZone.contains(location) else {
+            message = "Você está fora da zona permitida para registrar o ponto."
+            return
+        }
                 
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude

@@ -20,6 +20,7 @@
 		3CB473FB2C505340000B64BA /* FirebaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB473FA2C505340000B64BA /* FirebaseUtils.swift */; };
 		3CB473FE2C5067A7000B64BA /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB473FD2C5067A7000B64BA /* LocationManager.swift */; };
 		3CB474012C506B2E000B64BA /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB474002C506B2E000B64BA /* RootView.swift */; };
+		3CF62C8E2C584F47005B604D /* Geofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF62C8D2C584F47005B604D /* Geofence.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		3CB473FA2C505340000B64BA /* FirebaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUtils.swift; sourceTree = "<group>"; };
 		3CB473FD2C5067A7000B64BA /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		3CB474002C506B2E000B64BA /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		3CF62C8D2C584F47005B604D /* Geofence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geofence.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				3C4648292C4B20E700B914D3 /* AppDelegate.swift */,
 				3CB473FA2C505340000B64BA /* FirebaseUtils.swift */,
 				3CB473FD2C5067A7000B64BA /* LocationManager.swift */,
+				3CF62C8D2C584F47005B604D /* Geofence.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CF62C8E2C584F47005B604D /* Geofence.swift in Sources */,
 				3C46482A2C4B20E700B914D3 /* AppDelegate.swift in Sources */,
 				3C46481A2C4B166600B914D3 /* LoginView.swift in Sources */,
 				3CA0F5E02C4F06C000E49629 /* BotaoView.swift in Sources */,
