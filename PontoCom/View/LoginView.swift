@@ -30,7 +30,7 @@ struct LoginView: View {
                 .autocorrectionDisabled(true)
                 .padding(.vertical, 10)
                         
-            SecureField("Password", text: $password)
+            SecureField("Senha", text: $password)
                 .textFieldStyle(.roundedBorder)
                 .padding(.bottom, 20)
             
@@ -40,11 +40,10 @@ struct LoginView: View {
             } else {
                 Button {
                     login()
-                    
                 } label: {
                     Text("Login")
                         .padding()
-                        .background(Color.blue)
+                        .background(.azul)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
