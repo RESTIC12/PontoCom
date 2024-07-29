@@ -22,16 +22,22 @@ struct LoginView: View {
                 Text("PontoC") + Text("o").foregroundStyle(.yellow) + Text("m.")
             }
             .font(.title)
+            .accessibilityElement(children: /*@START_MENU_TOKEN@*/.ignore/*@END_MENU_TOKEN@*/)
+            .accessibilityLabel(Text("Ponto . com"))
             
             TextField("Email", text: $email)
                 .keyboardType(.emailAddress)
                 .textInputAutocapitalization(.never)
                 .textFieldStyle(.roundedBorder)
                 .autocorrectionDisabled(true)
+                .accessibilityElement(children: /*@START_MENU_TOKEN@*/.ignore/*@END_MENU_TOKEN@*/)
+                .accessibilityLabel(Text("Preencha com seu email"))
                 .padding(.vertical, 10)
                         
             SecureField("Senha", text: $password)
                 .textFieldStyle(.roundedBorder)
+                .accessibilityElement(children: /*@START_MENU_TOKEN@*/.ignore/*@END_MENU_TOKEN@*/)
+                .accessibilityLabel(Text("Coloque sua senha"))
                 .padding(.bottom, 20)
             
             if isLoading {
@@ -47,10 +53,14 @@ struct LoginView: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
+                .accessibilityElement(children: /*@START_MENU_TOKEN@*/.ignore/*@END_MENU_TOKEN@*/)
+                .accessibility(label: Text("Aperte o botão para entrar"))
             }
             
             Text(errorMessage)
                 .foregroundColor(.red)
+                .accessibilityElement(children: /*@START_MENU_TOKEN@*/.ignore/*@END_MENU_TOKEN@*/)
+                .accessibility(label: Text("Mensagem de erro: \(errorMessage.isEmpty ? "Nenhum erro" : errorMessage)"))
                 .padding(.top, 10)
         }
         .padding()
