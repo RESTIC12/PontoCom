@@ -157,11 +157,12 @@
 			};
 			buildConfigurationList = 3C4648032C4B163A00B914D3 /* Build configuration list for PBXProject "PontoCom" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = "pt-BR";
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				"pt-BR",
 			);
 			mainGroup = 3C4647FF2C4B163A00B914D3;
 			packageReferences = (
