@@ -60,7 +60,7 @@ struct LoginView: View {
             Text(errorMessage)
                 .foregroundColor(.red)
                 .accessibilityElement(children: /*@START_MENU_TOKEN@*/.ignore/*@END_MENU_TOKEN@*/)
-                .accessibility(label: Text("Mensagem de erro: \(errorMessage.isEmpty ? "Nenhum erro" : errorMessage)"))
+               .accessibility(label: Text("A credencial de autenticação fornecida está incorreta ou expirou"))
                 .padding(.top, 10)
         }
         .padding()
@@ -82,7 +82,8 @@ struct LoginView: View {
                 print("Logged in as \(user.email ?? "")")
                 isAuthenticated = true
             case .failure(let error):
-                errorMessage = error.localizedDescription
+//                errorMessage = error.localizedDescription
+                errorMessage = "A credencial de autenticação fornecida está incorreta ou expirou"
             }
         }
     }
