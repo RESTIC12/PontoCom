@@ -28,17 +28,29 @@ class FirebaseUtils {
         }
     }
     
-//    func register(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
-//        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-//            if let error = error {
-//                completion(.failure(error))
-//                return
-//            }
-//            if let user = authResult?.user {
-//                completion(.success(user))
-//            }
-//        }
-//    }
+    func signUp(email: String, password: String, name: String, cpf: String, company: String, role: String, completion: @escaping (Result<User, Error>) -> Void) {
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let user = authResult?.user {
+                // Save additional user information in Firestore
+                let db = Firestore.firestore()
+                db.collection("users").document(user.uid).setData([
+                    "name": name,
+                    "cpf": cpf,
+                    "company": company,
+                    "role": role,
+                    "email": email
+                ]) { error in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        completion(.success(user))
+                    }
+                }
+            }
+        }
+    }
     
     func logout(completion: @escaping (Result<Void, Error>) -> Void) {
         do {
