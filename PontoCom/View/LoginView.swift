@@ -18,12 +18,12 @@ struct LoginView: View {
                 Text("PontoC") + Text("o").foregroundStyle(.verde) + Text("m.")
             }
             .font(.title)
-            .accessibilityElement(children: /*@START_MENU_TOKEN@*/.ignore/*@END_MENU_TOKEN@*/)
+            .accessibilityElement(children: .ignore)
             .accessibilityLabel(Text("Ponto com"))
             
             Text(viewModel.errorMessage)
                 .foregroundColor(.red)
-                .accessibilityElement(children: /*@START_MENU_TOKEN@*/.ignore/*@END_MENU_TOKEN@*/)
+                .accessibilityElement(children: .ignore)
                 .accessibilityLabel(Text("A credencial de autenticação fornecida está incorreta ou expirou"))
                 .padding(.top, 10)
             
@@ -46,7 +46,7 @@ struct LoginView: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
-                .accessibilityElement(children: /*@START_MENU_TOKEN@*/.ignore/*@END_MENU_TOKEN@*/)
+                .accessibilityElement(children: .ignore)
                 .accessibilityLabel(Text(viewModel.isLoginMode ? "Aperte o botão para entrar" : "Aperte o botão para cadastrar"))
             }
             
@@ -61,7 +61,7 @@ struct LoginView: View {
             .padding(.vertical, 20)
         }
         .padding()
-        .onChange(of: viewModel.isAuthenticated, initial: false) { oldValue, newValue in
+        .onChange(of: viewModel.isAuthenticated) { oldValue, newValue in
             if newValue {
                 isAuthenticated = true
             }
@@ -75,13 +75,13 @@ struct LoginView: View {
                 .textInputAutocapitalization(.never)
                 .textFieldStyle(.roundedBorder)
                 .autocorrectionDisabled(true)
-                .accessibilityElement(children: /*@START_MENU_TOKEN@*/.ignore/*@END_MENU_TOKEN@*/)
+                .accessibilityElement(children: .ignore)
                 .accessibilityLabel(Text("Preencha com seu email"))
                 .padding(.vertical, 10)
             
             SecureField("Senha", text: $viewModel.password)
                 .textFieldStyle(.roundedBorder)
-                .accessibilityElement(children: /*@START_MENU_TOKEN@*/.ignore/*@END_MENU_TOKEN@*/)
+                .accessibilityElement(children: .ignore)
                 .accessibilityLabel(Text("Coloque sua senha"))
                 .padding(.bottom, 20)
         }
@@ -99,7 +99,14 @@ struct LoginView: View {
                 .keyboardType(.numberPad)
                 .textFieldStyle(.roundedBorder)
                 .accessibilityElement(children: .ignore)
-                .accessibilityLabel(Text("Preencha com seu CIF"))
+                .accessibilityLabel(Text("Preencha com seu CPF"))
+                .onChange(of: viewModel.cpf) { oldValue, newValue in
+                    if !viewModel.validateCPF(cpf: newValue) {
+                        viewModel.errorMessage = "CPF inválido."
+                    } else {
+                        viewModel.errorMessage = ""
+                    }
+                }
             
             TextField("Email", text: $viewModel.email)
                 .keyboardType(.emailAddress)
