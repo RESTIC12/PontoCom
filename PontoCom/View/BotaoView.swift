@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct BotaoView: View {
-    var numero: String
     var texto: String
     var simbolo: String
     var cor: Color
@@ -19,14 +18,12 @@ struct BotaoView: View {
             action()
         } label: {
             VStack(alignment: .center) {
-                HStack {
-                    Text(numero)
-                        .foregroundStyle(.black)
-                        .font(.title)
-                    Spacer()
+                HStack{
+                    Text("")
                 }
                 Text(texto)
                     .font(.title)
+//                    .bold()
                     .foregroundStyle(.black)
                     .padding(.vertical, 50)
                 HStack {
@@ -47,12 +44,20 @@ struct BotaoView: View {
     }
 }
 
+enum PontoStatus {
+    case none
+    case entrada
+    case pausa
+    case retorno
+    case saida
+}
+
 #Preview {
     HStack {
-        BotaoView(numero: "1", texto: "Entrada", simbolo: "play", cor: .verde) {
+        BotaoView(texto: "Entrada", simbolo: "play", cor: .verde) {
             
         }
-        BotaoView(numero: "2", texto: "Saída", simbolo: "stop", cor: .vermelho) {
+        BotaoView(texto: "Saída", simbolo: "stop", cor: .vermelho) {
             
         }
     }.padding()

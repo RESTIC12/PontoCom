@@ -11,6 +11,8 @@ import CoreLocation
 struct MainView: View {
     @StateObject private var locationManager = LocationManager()
     @State private var message: String = ""
+    @State private var isPaused: Bool = false
+    @State private var isEntryCompleted: Bool = false
     let fu = FirebaseUtils.shared
 
     var body: some View {
@@ -31,32 +33,37 @@ struct MainView: View {
             
             Text(message)
             
-            HStack {
-                BotaoView(numero: "1", texto: "Entrada", simbolo: "play", cor: .verde) {
-                    registrarPonto(tipo: "entrada")
-                }
-                .accessibilityElement(children: /*@START_MENU_TOKEN@*/.ignore/*@END_MENU_TOKEN@*/)
-                .accessibilityLabel(Text("Pressione o Botão um para bater o ponto de entrada"))
-                
-                BotaoView(numero: "2", texto: "Pausa", simbolo: "pause", cor: .azul) {
-                    registrarPonto(tipo: "pausa")
-                }
-                .accessibilityElement(children: /*@START_MENU_TOKEN@*/.ignore/*@END_MENU_TOKEN@*/)
-                .accessibilityLabel(Text("Presione o Botão dois para dá o intervalo"))
+            BotaoView(texto: "Entrada", simbolo: "play", cor: .verde) {
+                registrarPonto(tipo: "entrada")
             }
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(Text("Pressione este botão para bater o ponto de entrada"))
             
             HStack {
-                BotaoView(numero: "3", texto: "Retorno", simbolo: "arrowshape.turn.up.backward", cor: .amarelo) {
-                    registrarPonto(tipo: "retorno")
+                if !isPaused {
+                    BotaoView(texto: "Pausa", simbolo: "pause", cor: .azul) {
+                        registrarPonto(tipo: "pausa")
+                        isPaused = true
+                    }
+                    .disabled(!isEntryCompleted)
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(Text("Presione este botão para começar o intervalo"))
+                } else {
+                    BotaoView(texto: "Retorno", simbolo: "arrowshape.turn.up.backward", cor: .amarelo) {
+                        registrarPonto(tipo: "retorno")
+                        isPaused = false
+                    }
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(Text("Presione este botão para voltar do intervalo"))
                 }
-                .accessibilityElement(children: /*@START_MENU_TOKEN@*/.ignore/*@END_MENU_TOKEN@*/)
-                .accessibilityLabel(Text("Presione o Botão três para voltar do intervalo"))
                 
-                BotaoView(numero: "4", texto: "Saída", simbolo: "stop", cor: .vermelho) {
+                BotaoView(texto: "Saída", simbolo: "stop", cor: .vermelho) {
                     registrarPonto(tipo: "saída")
                 }
-                .accessibilityElement(children: /*@START_MENU_TOKEN@*/.ignore/*@END_MENU_TOKEN@*/)
-                .accessibilityLabel(Text("Presione o Botão quatro para finalizar o dia"))
+                .disabled(!isEntryCompleted)
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(Text("Presione este botão para finalizar o dia"))
+                
             }
         }
         .padding()
@@ -71,7 +78,7 @@ struct MainView: View {
         }
         
         guard allowedZone.contains(location) else {
-            message = "Você está fora da zona permitida para registrar o ponto."
+            message = "Você está fora da zona permitida."
             return
         }
                 
@@ -82,6 +89,11 @@ struct MainView: View {
             switch result {
             case .success():
                 message = "Ponto de \(tipo) registrado com sucesso!"
+                if tipo == "entrada" {
+                    isEntryCompleted = true
+                } else if tipo == "saída" {
+                    isEntryCompleted = false
+                }
             case .failure(let error):
                 message = "Erro ao registrar ponto: \(error.localizedDescription)"
             }
