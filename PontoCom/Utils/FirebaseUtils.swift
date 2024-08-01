@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 class FirebaseUtils {
     static let shared = FirebaseUtils()
+    private let db = Firestore.firestore()
     
     private init() {}
     
@@ -63,17 +64,25 @@ class FirebaseUtils {
     
 // MARK: - Firestore
     
-    func savePointData(tipo: String, horario: Date, latitude: Double, longitude: Double, totalTime: TimeInterval? = nil, completion: @escaping (Result<Void, Error>) -> Void) {
-        let db = Firestore.firestore()
-        let data: [String: Any] = [
+    func savePointData(tipo: String, horario: Date, latitude: Double, longitude: Double, tempoTotal: TimeInterval? = nil, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let user = Auth.auth().currentUser else {
+            completion(.failure(NSError(domain: "FirebaseAuth", code: -1, userInfo: [NSLocalizedDescriptionKey: "Usuário não autenticado."])))
+            return
+        }
+        
+        var data: [String: Any] = [
             "userId": Auth.auth().currentUser?.uid ?? "",
             "tipo": tipo,
-            "horario": horario,
+            "horario": Timestamp(date: horario),
             "latitude": latitude,
             "longitude": longitude
         ]
         
-        db.collection("pontos").addDocument(data: data) { error in
+        if let total = tempoTotal {
+            data["tempoTotal"] = total
+        }
+        
+        db.collection("users").document(user.uid).collection("pontos").addDocument(data: data) { error in
             if let error = error {
                 completion(.failure(error))
             } else {
@@ -105,14 +114,14 @@ class FirebaseUtils {
 // MARK: - Modelo Ponto
 
 struct Ponto {
-    var userId: String
+    var uid: String
     var tipo: String
     var horario: Date
     var latitude: Double
     var longitude: Double
     
     init?(dictionary: [String: Any]) {
-        guard let userId = dictionary["userId"] as? String,
+        guard let uid = dictionary["uid"] as? String,
               let tipo = dictionary["tipo"] as? String,
               let horario = dictionary["horario"] as? Timestamp,
               let latitude = dictionary["latitude"] as? Double,
@@ -120,7 +129,7 @@ struct Ponto {
             return nil
         }
         
-        self.userId = userId
+        self.uid = uid
         self.tipo = tipo
         self.horario = horario.dateValue()
         self.latitude = latitude
