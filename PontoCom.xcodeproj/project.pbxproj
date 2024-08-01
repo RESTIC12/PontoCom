@@ -17,6 +17,8 @@
 		3C4648242C4B1F3100B914D3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C4648232C4B1F3100B914D3 /* GoogleService-Info.plist */; };
 		3C46482A2C4B20E700B914D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4648292C4B20E700B914D3 /* AppDelegate.swift */; };
 		3CA0F5E02C4F06C000E49629 /* BotaoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA0F5DF2C4F06C000E49629 /* BotaoView.swift */; };
+		3CA619382C5C38020028091D /* TImerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA619372C5C38020028091D /* TImerViewModel.swift */; };
+		3CA6193A2C5C382D0028091D /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA619392C5C382D0028091D /* TimerView.swift */; };
 		3CB473FB2C505340000B64BA /* FirebaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB473FA2C505340000B64BA /* FirebaseUtils.swift */; };
 		3CB473FE2C5067A7000B64BA /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB473FD2C5067A7000B64BA /* LocationManager.swift */; };
 		3CB474012C506B2E000B64BA /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB474002C506B2E000B64BA /* RootView.swift */; };
@@ -34,6 +36,8 @@
 		3C4648232C4B1F3100B914D3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3C4648292C4B20E700B914D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CA0F5DF2C4F06C000E49629 /* BotaoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotaoView.swift; sourceTree = "<group>"; };
+		3CA619372C5C38020028091D /* TImerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TImerViewModel.swift; sourceTree = "<group>"; };
+		3CA619392C5C382D0028091D /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		3CB473FA2C505340000B64BA /* FirebaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUtils.swift; sourceTree = "<group>"; };
 		3CB473FD2C5067A7000B64BA /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		3CB474002C506B2E000B64BA /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -107,6 +111,7 @@
 				3C4648192C4B166600B914D3 /* LoginView.swift */,
 				3C2FEDE42C4B24F100A925A9 /* MainView.swift */,
 				3CA0F5DF2C4F06C000E49629 /* BotaoView.swift */,
+				3CA619392C5C382D0028091D /* TimerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -126,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				3CF62C902C59A8E7005B604D /* LoginViewModel.swift */,
+				3CA619372C5C38020028091D /* TImerViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -215,10 +221,12 @@
 				3CA0F5E02C4F06C000E49629 /* BotaoView.swift in Sources */,
 				3CB473FE2C5067A7000B64BA /* LocationManager.swift in Sources */,
 				3CB474012C506B2E000B64BA /* RootView.swift in Sources */,
+				3CA6193A2C5C382D0028091D /* TimerView.swift in Sources */,
 				3C2FEDE52C4B24F100A925A9 /* MainView.swift in Sources */,
 				3CB473FB2C505340000B64BA /* FirebaseUtils.swift in Sources */,
 				3CF62C912C59A8E7005B604D /* LoginViewModel.swift in Sources */,
 				3C46480C2C4B163A00B914D3 /* PontoComApp.swift in Sources */,
+				3CA619382C5C38020028091D /* TImerViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
