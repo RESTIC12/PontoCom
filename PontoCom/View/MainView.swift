@@ -10,24 +10,21 @@ import CoreLocation
 
 struct MainView: View {
     @StateObject private var locationManager = LocationManager()
+    @StateObject private var tvm = TimerViewModel()
     @State private var message: String = ""
     @State private var isPaused: Bool = false
     @State private var isEntryCompleted: Bool = false
+    
     let fu = FirebaseUtils.shared
 
     var body: some View {
         VStack {
             Spacer()
             
-            Text(Date.now.formatted(date: .abbreviated, time: .omitted))
-                .font(.title)
-                .accessibilityElement(children: /*@START_MENU_TOKEN@*/.ignore/*@END_MENU_TOKEN@*/)
-                .accessibilityLabel(Date.now.formatted(date: .abbreviated, time: .omitted))
+            Text("Horas trabalhadas:")
+                .font(.title2)
             
-            Text(Date.now.formatted(date: .omitted, time: .shortened))
-                .font(.title)
-                .accessibilityElement(children: /*@START_MENU_TOKEN@*/.ignore/*@END_MENU_TOKEN@*/)
-                .accessibilityLabel(Date.now.formatted(date: .omitted, time: .shortened))
+            TimerView(viewModel: tvm)
             
             Spacer()
             
@@ -36,26 +33,21 @@ struct MainView: View {
             BotaoView(texto: "Entrada", simbolo: "play", cor: .verde) {
                 registrarPonto(tipo: "entrada")
             }
+            .disabled(isEntryCompleted)
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(Text("Pressione este botão para bater o ponto de entrada"))
             
             HStack {
-                if !isPaused {
-                    BotaoView(texto: "Pausa", simbolo: "pause", cor: .azul) {
-                        registrarPonto(tipo: "pausa")
-                        isPaused = true
-                    }
-                    .disabled(!isEntryCompleted)
-                    .accessibilityElement(children: .ignore)
-                    .accessibilityLabel(Text("Presione este botão para começar o intervalo"))
-                } else {
-                    BotaoView(texto: "Retorno", simbolo: "arrowshape.turn.up.backward", cor: .amarelo) {
+                BotaoView(texto: isPaused ? "Retorno" : "Pausa", simbolo: isPaused ? "arrowshape.turn.up.backward" : "pause", cor: isPaused ? .amarelo : .azul) {
+                    if isPaused {
                         registrarPonto(tipo: "retorno")
-                        isPaused = false
+                    } else {
+                        registrarPonto(tipo: "pausa")
                     }
-                    .accessibilityElement(children: .ignore)
-                    .accessibilityLabel(Text("Presione este botão para voltar do intervalo"))
                 }
+                .disabled(!isEntryCompleted)
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(Text(isPaused ? "Pressione este botão para voltar do intervalo" : "Pressione este botão para dar o intervalo"))
                 
                 BotaoView(texto: "Saída", simbolo: "stop", cor: .vermelho) {
                     registrarPonto(tipo: "saída")
@@ -67,6 +59,9 @@ struct MainView: View {
             }
         }
         .padding()
+        .onAppear {
+            tvm.checkLastExitTime()
+        }
     }
     
     func registrarPonto(tipo: String) {
@@ -85,14 +80,23 @@ struct MainView: View {
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
         
-        fu.savePointData(tipo: tipo, horario: now, latitude: latitude, longitude: longitude) { result in
+        fu.savePointData(tipo: tipo, horario: now, latitude: latitude, longitude: longitude, totalTime: tipo == "saída" ? tvm.totalTime : nil) { result in
             switch result {
             case .success():
                 message = "Ponto de \(tipo) registrado com sucesso!"
                 if tipo == "entrada" {
                     isEntryCompleted = true
+                    tvm.startTimer()
+                } else if tipo == "pausa" {
+                    tvm.stopTimer()
+                    isPaused = true
+                } else if tipo == "retorno" {
+                    tvm.startTimer()
+                    isPaused = false
                 } else if tipo == "saída" {
+                    tvm.stopTimer()
                     isEntryCompleted = false
+                    tvm.setLastTimeExit(Date())
                 }
             case .failure(let error):
                 message = "Erro ao registrar ponto: \(error.localizedDescription)"

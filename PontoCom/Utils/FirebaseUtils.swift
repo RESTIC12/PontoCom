@@ -63,7 +63,7 @@ class FirebaseUtils {
     
 // MARK: - Firestore
     
-    func savePointData(tipo: String, horario: Date, latitude: Double, longitude: Double, completion: @escaping (Result<Void, Error>) -> Void) {
+    func savePointData(tipo: String, horario: Date, latitude: Double, longitude: Double, totalTime: TimeInterval? = nil, completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()
         let data: [String: Any] = [
             "userId": Auth.auth().currentUser?.uid ?? "",
