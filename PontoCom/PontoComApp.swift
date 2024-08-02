@@ -14,7 +14,8 @@ struct PontoComApp: App {
     
     var body: some Scene {
         WindowGroup {
-            RootView()
+            //RootView()
+            SplashView(viewModel: SplashViewModel())
         }
     }
 }

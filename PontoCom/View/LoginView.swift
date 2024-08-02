@@ -61,7 +61,7 @@ struct LoginView: View {
             .padding(.vertical, 20)
         }
         .padding()
-        .onChange(of: viewModel.isAuthenticated) { oldValue, newValue in
+       .onChange(of: viewModel.isAuthenticated) { oldValue, newValue in
             if newValue {
                 isAuthenticated = true
             }
