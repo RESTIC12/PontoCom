@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RootView: View {
+    @ObservedObject var viewModel = LoginViewModel()
     @State private var isAuthenticated = false
     
     var body: some View {
@@ -16,8 +17,8 @@ struct RootView: View {
                 MainView()
                     .navigationBarHidden(true)
             } else {
-                LoginView(isAuthenticated: $isAuthenticated)
-                    .navigationBarHidden(true)
+            LoginView(isAuthenticated: $isAuthenticated)
+              .navigationBarHidden(true)
             }
         }
     }

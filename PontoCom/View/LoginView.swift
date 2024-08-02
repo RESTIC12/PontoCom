@@ -9,7 +9,8 @@ import SwiftUI
 import FirebaseAuth
 
 struct LoginView: View {
-    @StateObject private var viewModel = LoginViewModel()
+        
+    @ObservedObject var viewModel = LoginViewModel()
     @Binding var isAuthenticated: Bool
     
     var body: some View {
@@ -61,11 +62,11 @@ struct LoginView: View {
             .padding(.vertical, 20)
         }
         .padding()
-        .onChange(of: viewModel.isAuthenticated) { oldValue, newValue in
-            if newValue {
-                isAuthenticated = true
-            }
-        }
+//        .onChange(of: viewModel.isAuthenticated) { oldValue, newValue in
+//            if newValue {
+//                isAuthenticated = true
+//            }
+//        }
     }
     
     private var loginForm: some View {
