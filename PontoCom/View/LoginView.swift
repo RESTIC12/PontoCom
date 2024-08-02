@@ -61,11 +61,11 @@ struct LoginView: View {
             .padding(.vertical, 20)
         }
         .padding()
-//        .onChange(of: viewModel.isAuthenticated) { oldValue, newValue in
-//            if newValue {
-//                isAuthenticated = true
-//            }
-//        }
+       .onChange(of: viewModel.isAuthenticated) { oldValue, newValue in
+            if newValue {
+                isAuthenticated = true
+            }
+        }
     }
     
     private var loginForm: some View {
