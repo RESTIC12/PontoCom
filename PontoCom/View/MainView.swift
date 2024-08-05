@@ -17,49 +17,62 @@ struct MainView: View {
     let fu = FirebaseUtils.shared
 
     var body: some View {
-        VStack {
-            Spacer()
-            
-            Text("Horas trabalhadas:")
-                .font(.title2)
-            
-            TimerView(viewModel: tvm)
-            
-            Spacer()
-            
-            Text(message)
-            
-            BotaoView(texto: "Entrada", simbolo: "play", cor: .verde) {
-                registrarPonto(tipo: "entrada")
+        NavigationStack {
+            VStack {
+                Spacer()
+                
+                Text("Horas trabalhadas:")
+                    .font(.title2)
+                
+                TimerView(viewModel: tvm)
+                
+                Spacer()
+                
+                Text(message)
+                
+                BotaoView(texto: "Entrada", simbolo: "play", cor: .verde) {
+                    registrarPonto(tipo: "entrada")
+                }
+                .disabled(isEntryCompleted)
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(Text("Pressione este botão para bater o ponto de entrada"))
+                
+                HStack {
+                    BotaoView(texto: isPaused ? "Retorno" : "Pausa", simbolo: isPaused ? "arrowshape.turn.up.backward" : "pause", cor: isPaused ? .amarelo : .azul) {
+                        if isPaused {
+                            registrarPonto(tipo: "retorno")
+                        } else {
+                            registrarPonto(tipo: "pausa")
+                        }
+                    }
+                    .disabled(!isEntryCompleted)
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(Text(isPaused ? "Pressione este botão para voltar do intervalo" : "Pressione este botão para dar o intervalo"))
+                    
+                    BotaoView(texto: "Saída", simbolo: "stop", cor: .vermelho) {
+                        registrarPonto(tipo: "saída")
+                    }
+                    .disabled(!isEntryCompleted)
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(Text("Presione este botão para finalizar o dia"))
+                    
+                }
             }
-            .disabled(isEntryCompleted)
-            .accessibilityElement(children: .ignore)
-            .accessibilityLabel(Text("Pressione este botão para bater o ponto de entrada"))
-            
-            HStack {
-                BotaoView(texto: isPaused ? "Retorno" : "Pausa", simbolo: isPaused ? "arrowshape.turn.up.backward" : "pause", cor: isPaused ? .amarelo : .azul) {
-                    if isPaused {
-                        registrarPonto(tipo: "retorno")
-                    } else {
-                        registrarPonto(tipo: "pausa")
+            .padding()
+            .onAppear {
+                tvm.checkLastExitTime()
+            }
+            .toolbar{
+                ToolbarItem(placement: .topBarTrailing){
+                    NavigationLink {
+                        PerfilView()
+                    } label: {
+                        Image(systemName: "person.crop.circle")
+                            .resizable()
+                            .frame(width: 32, height: 32)
                     }
                 }
-                .disabled(!isEntryCompleted)
-                .accessibilityElement(children: .ignore)
-                .accessibilityLabel(Text(isPaused ? "Pressione este botão para voltar do intervalo" : "Pressione este botão para dar o intervalo"))
-                
-                BotaoView(texto: "Saída", simbolo: "stop", cor: .vermelho) {
-                    registrarPonto(tipo: "saída")
-                }
-                .disabled(!isEntryCompleted)
-                .accessibilityElement(children: .ignore)
-                .accessibilityLabel(Text("Presione este botão para finalizar o dia"))
-                
             }
-        }
-        .padding()
-        .onAppear {
-            tvm.checkLastExitTime()
         }
     }
     
