@@ -21,4 +21,5 @@ struct TimerView: View {
 #Preview {
     let vm = TimerViewModel()
     return TimerView(viewModel: vm)
+        
 }
