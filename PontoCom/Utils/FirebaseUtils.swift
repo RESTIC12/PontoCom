@@ -110,30 +110,3 @@ class FirebaseUtils {
         }
     }
 }
-
-// MARK: - Modelo Ponto
-
-struct Ponto {
-    var uid: String
-    var tipo: String
-    var horario: Date
-    var latitude: Double
-    var longitude: Double
-    
-    init?(dictionary: [String: Any]) {
-        guard let uid = dictionary["uid"] as? String,
-              let tipo = dictionary["tipo"] as? String,
-              let horario = dictionary["horario"] as? Timestamp,
-              let latitude = dictionary["latitude"] as? Double,
-              let longitude = dictionary["longitude"] as? Double else {
-            return nil
-        }
-        
-        self.uid = uid
-        self.tipo = tipo
-        self.horario = horario.dateValue()
-        self.latitude = latitude
-        self.longitude = longitude
-    }
-}
-

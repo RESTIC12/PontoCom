@@ -80,7 +80,7 @@ struct MainView: View {
         let longitude = location.coordinate.longitude
         let tempoTotal: TimeInterval? = tipo == "saída" ? tvm.totalTime : nil
         
-        fu.savePointData(tipo: tipo, horario: now, latitude: latitude, longitude: longitude, tempoTotal: tipo == "saída" ? tvm.totalTime : nil) { result in
+        fu.savePointData(tipo: tipo, horario: now, latitude: latitude, longitude: longitude, tempoTotal: tempoTotal) { result in
             switch result {
             case .success():
                 message = "Ponto de \(tipo) registrado com sucesso!"
