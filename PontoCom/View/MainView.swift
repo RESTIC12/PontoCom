@@ -14,7 +14,6 @@ struct MainView: View {
     @State private var message: String = ""
     @State private var isPaused: Bool = false
     @State private var isEntryCompleted: Bool = false
-    
     let fu = FirebaseUtils.shared
 
     var body: some View {
@@ -79,8 +78,9 @@ struct MainView: View {
                 
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
+        let tempoTotal: TimeInterval? = tipo == "saída" ? tvm.totalTime : nil
         
-        fu.savePointData(tipo: tipo, horario: now, latitude: latitude, longitude: longitude, totalTime: tipo == "saída" ? tvm.totalTime : nil) { result in
+        fu.savePointData(tipo: tipo, horario: now, latitude: latitude, longitude: longitude, tempoTotal: tipo == "saída" ? tvm.totalTime : nil) { result in
             switch result {
             case .success():
                 message = "Ponto de \(tipo) registrado com sucesso!"
