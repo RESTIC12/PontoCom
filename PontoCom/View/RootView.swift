@@ -8,22 +8,31 @@
 import SwiftUI
 
 struct RootView: View {
-    @ObservedObject var viewModel = LoginViewModel()
-    @State private var isAuthenticated = false
+    @StateObject private var lvm = LoginViewModel()
     
     var body: some View {
         NavigationView {
-            if isAuthenticated {
-                MainView()
-                    .navigationBarHidden(true)
+            if lvm.isAuthenticated {
+                if lvm.userRole == "Gestor" {
+                    GestorView()
+                        .environmentObject(lvm)
+                        .navigationBarBackButtonHidden()
+                } else if lvm.userRole == "Colaborador"{
+                    MainView()
+                        .environmentObject(lvm)
+                        .navigationBarBackButtonHidden()
+                }
             } else {
-            LoginView(isAuthenticated: $isAuthenticated)
-              .navigationBarHidden(true)
+                LoginView(isAuthenticated: $lvm.isAuthenticated)
+                    .environmentObject(lvm)
+                    .navigationBarBackButtonHidden()
             }
         }
     }
 }
 
+
 #Preview {
     RootView()
 }
+

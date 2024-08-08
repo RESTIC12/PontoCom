@@ -7,8 +7,10 @@
 
 import SwiftUI
 import CoreLocation
+import FirebaseAuth
 
 struct MainView: View {
+    @EnvironmentObject var lvm: LoginViewModel
     @StateObject private var locationManager = LocationManager()
     @StateObject private var tvm = TimerViewModel()
     @State private var message: String = ""
@@ -84,16 +86,28 @@ struct MainView: View {
             return
         }
         
-        guard allowedZone.contains(location) else {
+        guard isLocationAllowed(location) else {
             message = "Você está fora da zona permitida."
             return
         }
-                
+        
+        guard let user = Auth.auth().currentUser else {
+            message = "Usuário não autenticado"
+            return
+        }
+        
+        let uid = user.uid
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
         let tempoTotal: TimeInterval? = tipo == "saída" ? tvm.totalTime : nil
         
-        fu.savePointData(tipo: tipo, horario: now, latitude: latitude, longitude: longitude, tempoTotal: tempoTotal) { result in
+        let pointId = UUID().uuidString // Gerar um identificador único para o ponto
+        
+        // Criar uma instância de Ponto
+        let ponto = Ponto(id: pointId, userId: uid, tipo: tipo, horario: now, latitude: latitude, longitude: longitude)
+        
+        // Atualizar a função savePointData para aceitar uma instância de Ponto
+        fu.savePointData(ponto) { result in
             switch result {
             case .success():
                 message = "Ponto de \(tipo) registrado com sucesso!"
