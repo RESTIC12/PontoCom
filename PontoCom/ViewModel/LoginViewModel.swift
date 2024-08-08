@@ -14,12 +14,13 @@ class LoginViewModel: ObservableObject {
     @Published var name = ""
     @Published var cpf = ""
     @Published var confirmPassword = ""
-    @Published var company = "IREDE"
+    @Published var project = "Residência"
     @Published var role = "Colaborador"
     @Published var errorMessage = ""
     @Published var isLoading = false
     @Published var isAuthenticated = false
     @Published var isLoginMode = true
+    @Published var userRole: String?
     
     private let fu = FirebaseUtils.shared
     
@@ -37,17 +38,37 @@ class LoginViewModel: ObservableObject {
         isLoading = true
         errorMessage = ""
         
-        fu.login(email: email, password: password) { result in
-            self.isLoading = false
-            switch result {
-            case .success(let user):
-                print("Logged in as \(user.email ?? "")")
-                self.isAuthenticated = true
-            case .failure:
-                self.errorMessage = "A credencial de autenticação fornecida está incorreta ou expirou"
+        fu.login(email: email, password: password) { [weak self] result in
+            DispatchQueue.main.async {
+                self?.isLoading = false
+                switch result {
+                case .success(let user):
+                    print("Logado como \(user.email)")
+                    self?.fetchUserRole(for: user)
+                case .failure:
+                    self?.errorMessage = "A credencial de autenticação fornecida está incorreta ou expirou"
+                }
             }
         }
     }
+    
+    private func fetchUserRole(for user: User) {
+        self.userRole = user.role
+        print("User Role: \(self.userRole ?? "Unknown")")
+        self.isAuthenticated = true
+    }
+    
+//    private func fetchUserRole(for user: User) {
+//        FirebaseUtils.shared.fetchCurrentUser { [weak self] result in
+//            switch result {
+//            case .success(let currentUser):
+//                self?.userRole = currentUser.role
+//                self?.isAuthenticated = true
+//            case .failure(let error):
+//                self?.errorMessage = "Erro ao buscar dados do usuário: \(error.localizedDescription)"
+//            }
+//        }
+//    }
         
     func signUp() {
         guard validateFields() else { return }
@@ -55,15 +76,14 @@ class LoginViewModel: ObservableObject {
         isLoading = true
         errorMessage = ""
         
-        fu.signUp(email: email, password: password, name: name, cpf: cpf, company: company, role: role) { [weak self] result in
+        fu.signUp(email: email, password: password, name: name, cpf: cpf, project: project, role: role) { [weak self] result in
             DispatchQueue.main.async {
                 self?.isLoading = false
                 switch result {
                 case .success(let user):
-                    print("Signed up as \(user.email ?? "")")
-                    self?.isAuthenticated = true
+                    self?.fetchUserRole(for: user)
                 case .failure(let error):
-                    self?.errorMessage = error.localizedDescription
+                    self?.errorMessage = "Erro ao buscar dados do usuário: \(error.localizedDescription)"
                 }
             }
         }
@@ -111,7 +131,7 @@ class LoginViewModel: ObservableObject {
         email = ""
         password = ""
         confirmPassword = ""
-        company = "IREDE"
+        project = "Residência"
         role = "Colaborador"
         errorMessage = ""
     }
