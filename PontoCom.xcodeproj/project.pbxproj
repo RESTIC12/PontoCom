@@ -30,6 +30,7 @@
 		3CE4FCD32C6183DA00F12D99 /* Ponto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4FCD22C6183DA00F12D99 /* Ponto.swift */; };
 		3CF62C8E2C584F47005B604D /* Geofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF62C8D2C584F47005B604D /* Geofence.swift */; };
 		3CF62C912C59A8E7005B604D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF62C902C59A8E7005B604D /* LoginViewModel.swift */; };
+		80C700162C66BD6600B9905C /* CalendarioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C700152C66BD6600B9905C /* CalendarioView.swift */; };
 		80D2CF2C2C618E670011922B /* PerfilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D2CF2B2C618E670011922B /* PerfilView.swift */; };
 		CEB917382C5C663E00B759DE /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB917372C5C663E00B759DE /* SplashView.swift */; };
 		CEB9173A2C5C665500B759DE /* SplashUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB917392C5C665500B759DE /* SplashUIState.swift */; };
@@ -60,6 +61,7 @@
 		3CE4FCD22C6183DA00F12D99 /* Ponto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ponto.swift; sourceTree = "<group>"; };
 		3CF62C8D2C584F47005B604D /* Geofence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geofence.swift; sourceTree = "<group>"; };
 		3CF62C902C59A8E7005B604D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		80C700152C66BD6600B9905C /* CalendarioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarioView.swift; sourceTree = "<group>"; };
 		80D2CF2B2C618E670011922B /* PerfilView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfilView.swift; sourceTree = "<group>"; };
 		CEB917372C5C663E00B759DE /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		CEB917392C5C665500B759DE /* SplashUIState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashUIState.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				3CA0F5DF2C4F06C000E49629 /* BotaoView.swift */,
 				3CA619392C5C382D0028091D /* TimerView.swift */,
 				80D2CF2B2C618E670011922B /* PerfilView.swift */,
+				80C700152C66BD6600B9905C /* CalendarioView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				CEB9173F2C5C693100B759DE /* SplashViewRouter.swift in Sources */,
 				3CA6193A2C5C382D0028091D /* TimerView.swift in Sources */,
 				3CAD82BC2C65816F00E26F57 /* PontosViewModel.swift in Sources */,
+				80C700162C66BD6600B9905C /* CalendarioView.swift in Sources */,
 				3C2FEDE52C4B24F100A925A9 /* MainView.swift in Sources */,
 				CEB917382C5C663E00B759DE /* SplashView.swift in Sources */,
 				3CAD82BA2C65813800E26F57 /* PontosView.swift in Sources */,

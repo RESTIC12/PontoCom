@@ -20,8 +20,7 @@ struct Geofence {
 let allowedZones = [
     Geofence(center: CLLocationCoordinate2D(latitude: -3.7447296633620395, longitude: -38.53674315233693), radius: 100),
     Geofence(center: CLLocationCoordinate2D(latitude: -3.7485283360097212, longitude: -38.52773083148533), radius: 100)
-    // Adicione mais zonas aqui, se necessário
-]
+ ]
 
 func isLocationAllowed(_ location: CLLocation) -> Bool {
     for zone in allowedZones {
