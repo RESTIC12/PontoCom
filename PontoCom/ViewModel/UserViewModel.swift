@@ -12,7 +12,7 @@ import FirebaseAuth
 class UserViewModel: ObservableObject {
     @Published var users: [User] = []
     @Published var errorMessage: String = ""
-    
+    @Published var usuarioAutenticado: User? = nil
     private var cancellables = Set<AnyCancellable>()
     private let firebaseUtils = FirebaseUtils.shared
     
@@ -29,6 +29,7 @@ class UserViewModel: ObservableObject {
         firebaseUtils.fetchUser(with: userId) { result in
             switch result {
             case .success(let user):
+                self.usuarioAutenticado = user
                 if user.role == "Gestor" {
                     self.firebaseUtils.fetchUsers(project: user.project) { result in
                         switch result {

@@ -16,6 +16,7 @@ struct MainView: View {
     @State private var message: String = ""
     @State private var isPaused: Bool = false
     @State private var isEntryCompleted: Bool = false
+    @StateObject private var userViewModel = UserViewModel()
     let fu = FirebaseUtils.shared
 
     var body: some View {
@@ -67,7 +68,7 @@ struct MainView: View {
             .toolbar{
                 ToolbarItem(placement: .topBarTrailing){
                     NavigationLink {
-                        PerfilView()
+                        PerfilView(userViewModel: userViewModel)
                     } label: {
                         Image(systemName: "person.crop.circle")
                             .resizable()
@@ -86,10 +87,10 @@ struct MainView: View {
             return
         }
         
-        guard isLocationAllowed(location) else {
-            message = "Você está fora da zona permitida."
-            return
-        }
+//        guard isLocationAllowed(location) else {
+//            message = "Você está fora da zona permitida."
+//            return
+//        }
         
         guard let user = Auth.auth().currentUser else {
             message = "Usuário não autenticado"
@@ -132,6 +133,9 @@ struct MainView: View {
     }
 }
 
-#Preview {
-    MainView()
+struct MainView_Previews: PreviewProvider {
+    static var previews: some View {
+        MainView()
+            .environmentObject(LoginViewModel())
+    }
 }
