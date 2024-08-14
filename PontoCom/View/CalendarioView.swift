@@ -5,7 +5,10 @@
 //  Created by Daniel Lopes da Silva on 09/08/24.
 //
 
+import UIKit
 import SwiftUI
+import PDFKit
+
 
 struct CalendarioView: View {
     @State private var cor: Color = .gray
@@ -94,8 +97,8 @@ struct CalendarioView: View {
                 .padding()
                 
                 if isLoading {
-                                   ProgressView()
-                                       .padding(.top)
+                    ProgressView()
+                        .padding(.top)
                 } else if !$pontosViewModel.points.isEmpty {
                     VStack(alignment: .leading) {
                         Text("Pontos Registrados")
@@ -110,9 +113,7 @@ struct CalendarioView: View {
                                 Text("Horário: \(ponto.horario.formatted(date: .abbreviated, time: .shortened))")
                                     .font(.subheadline)
                                     .padding(.bottom, 2)
-                                Text("Localização: \(ponto.latitude), \(ponto.longitude)")
-                                    .font(.subheadline)
-                                    .padding(.bottom, 2)
+                               
                             }
                             .padding()
                             .background(Color(UIColor.systemGray6))
@@ -122,11 +123,29 @@ struct CalendarioView: View {
                     }
                     .padding(.horizontal)
                 }
+                
+                Button(action: {
+                   let url =  gerarPDF()
+                    compartilharPDF(url: url)
+                }) {
+                    HStack {
+                        Image(systemName: "arrow.down.doc")
+                        Text("Baixar PDF")
+                    }
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+                    .padding(.bottom)
+                }
             }
         }
         .padding()
         .onAppear(perform: calcularDiasDoMes)
     }
+    
+    
+    
     
     func buscarPontosParaDiaSelecionado() {
            guard let diaSelecionado = diaSelecionado else { return }
@@ -187,6 +206,60 @@ struct CalendarioView: View {
         let espacosVazios = diaDaSemana - calendario.firstWeekday
         diasNoMes = Array(repeating: 0, count: espacosVazios) + diasNoMes
     }
+    func gerarPDF() -> URL {
+        let pdfMetaData = [
+            kCGPDFContextCreator: "PontoCom",
+            kCGPDFContextAuthor: "Seu Nome",
+            kCGPDFContextTitle: "Histórico de Pontos"
+        ]
+        let format = UIGraphicsPDFRendererFormat()
+        format.documentInfo = pdfMetaData as [String: Any]
+
+        let pageWidth = 8.5 * 72.0
+        let pageHeight = 11 * 72.0
+        let pdfRenderer = UIGraphicsPDFRenderer(bounds: CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight), format: format)
+
+        let data = pdfRenderer.pdfData { context in
+            context.beginPage()
+
+            let titleFont = UIFont.systemFont(ofSize: 18, weight: .bold)
+            let textFont = UIFont.systemFont(ofSize: 12, weight: .regular)
+
+            let titleAttributes: [NSAttributedString.Key: Any] = [.font: titleFont]
+            let textAttributes: [NSAttributedString.Key: Any] = [.font: textFont]
+
+            let titleText = "Histórico de Pontos"
+            titleText.draw(at: CGPoint(x: 20, y: 20), withAttributes: titleAttributes)
+
+            var yOffset = 60
+            for ponto in pontosViewModel.points {
+                let text = """
+                Tipo: \(ponto.tipo)
+                Horário: \(ponto.horario.formatted(date: .abbreviated, time: .shortened))
+                """
+                text.draw(at: CGPoint(x: 20, y: yOffset), withAttributes: textAttributes)
+                yOffset += 60
+            }
+        }
+
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent("HistoricoPontos.pdf")
+        do {
+            try data.write(to: url)
+            print("PDF criado com sucesso: \(url)")
+        } catch {
+            print("Erro ao criar PDF: \(error)")
+        }
+        return url
+    }
+
+    func compartilharPDF(url: URL) {
+        let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        
+        if let topController = UIApplication.shared.windows.first?.rootViewController {
+            topController.present(activityViewController, animated: true, completion: nil)
+        }
+    }
+    
 
 }
 
