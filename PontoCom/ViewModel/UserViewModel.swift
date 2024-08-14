@@ -20,6 +20,11 @@ class UserViewModel: ObservableObject {
         fetchUsers()
     }
         
+    
+    var nomeUsuario: String {
+          return usuarioAutenticado?.name ?? "Usuário"
+      }
+    
     func fetchUsers() {
         guard let userId = Auth.auth().currentUser?.uid else {
             errorMessage = "Usuário não autenticado"

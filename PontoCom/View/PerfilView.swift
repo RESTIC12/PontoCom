@@ -5,7 +5,7 @@ import FirebaseAuth
 
 struct PerfilView: View {
     @ObservedObject var userViewModel: UserViewModel
-
+    
     var body: some View {
     
         NavigationView {
@@ -19,7 +19,7 @@ struct PerfilView: View {
                         .clipped()
                         .padding(.top, 44)
                     
-                    Label("Levi Soares", systemImage: "person")
+                    Label(userViewModel.nomeUsuario, systemImage: "person")
                         .font(.system(size: 20))
                         .bold()
                         .foregroundColor(.blue)

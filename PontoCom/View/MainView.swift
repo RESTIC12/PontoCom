@@ -87,10 +87,10 @@ struct MainView: View {
             return
         }
         
-//        guard isLocationAllowed(location) else {
-//            message = "Você está fora da zona permitida."
-//            return
-//        }
+        guard isLocationAllowed(location) else {
+            message = "Você está fora da zona permitida."
+            return
+        }
         
         guard let user = Auth.auth().currentUser else {
             message = "Usuário não autenticado"
@@ -107,7 +107,6 @@ struct MainView: View {
         // Criar uma instância de Ponto
         let ponto = Ponto(id: pointId, userId: uid, tipo: tipo, horario: now, latitude: latitude, longitude: longitude)
         
-        // Atualizar a função savePointData para aceitar uma instância de Ponto
         fu.savePointData(ponto) { result in
             switch result {
             case .success():
