@@ -1,10 +1,3 @@
-//
-//  PerfilView.swift
-//  PontoCom
-//
-//  Created by Daniel Lopes da Silva on 05/08/24.
-//
-
 import SwiftUI
 import FirebaseFirestore
 import FirebaseStorage

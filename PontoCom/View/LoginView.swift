@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct LoginView: View {
-    @StateObject private var viewModel = LoginViewModel()
+    @EnvironmentObject var viewModel: LoginViewModel
     @Binding var isAuthenticated: Bool
     
     var body: some View {
@@ -127,8 +127,10 @@ struct LoginView: View {
                 .accessibilityLabel(Text("Confirme sua senha"))
             
             HStack {
-                Picker("Empresa", selection: $viewModel.company) {
-                    Text("IREDE").tag("IREDE")
+                Picker("Empresa", selection: $viewModel.project) {
+                    Text("Residência").tag("Residência")
+                    Text("CJovem").tag("CJovem")
+                    Text("LDS").tag("LDS")
                 }
                 
                 Picker("Função", selection: $viewModel.role) {
