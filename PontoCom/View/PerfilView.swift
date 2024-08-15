@@ -65,44 +65,33 @@ import FirebaseStorage
                     
                 }
                 
-                Button(action: {
-                    
-                }){
-                    Label("Editar informacoes", systemImage: "pencil.and.list.clipboard")
-                        .padding()
-                        .foregroundColor(.black)
-                        .background(Color.green)
-                        .cornerRadius(10)
-                        .opacity(0.8)
-                    
-                    
-                }
-                
-                Button(action:{
-                    
-                }){
-                    Label("Justificar faltas", systemImage: "doc.questionmark")
-                        .padding()
-                        .foregroundColor(.black)
-                        .background(Color.red)
-                        .cornerRadius(10)
-                        .opacity(0.8)
-                    
-                }
-                
-                
-                Button(action:{
-                    
-                }){
-                    Label("Historico", systemImage: "calendar")
-                        .padding()
-                        .foregroundColor(.black)
-                        .background(.blue)
-                        .opacity(0.7)
-                        .cornerRadius(10)
-                        .padding()
-                }
-            }
+                NavigationLink(destination: EditarInformacoesView()) {
+        //                    Label("Editar informacoes", systemImage: "pencil.and.list.clipboard")
+        //                        .padding()
+        //                        .foregroundColor(.black)
+        //                        .background(Color.green)
+        //                        .cornerRadius(10)
+        //                        .opacity(0.8)
+        //                }
+        //
+        //                NavigationLink(destination: JustificarFaltasView()) {
+        //                    Label("Justificar faltas", systemImage: "doc.questionmark")
+        //                        .padding()
+        //                        .foregroundColor(.black)
+        //                        .background(Color.red)
+        //                        .cornerRadius(10)
+        //                        .opacity(0.8)
+        //                }
+
+                        NavigationLink(destination: CalendarioView(userViewModel: userViewModel)) {
+                            Label("Historico", systemImage: "calendar")
+                                .padding()
+                                .foregroundColor(.black)
+                                .background(.blue)
+                                .opacity(0.7)
+                                .cornerRadius(10)
+                                .padding()
+                        }
             .navigationViewStyle(StackNavigationViewStyle())
             .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil){
                 ImagePickerView(image: $image)
