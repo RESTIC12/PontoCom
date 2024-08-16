@@ -11,64 +11,88 @@ import FirebaseAuth
 
 struct MainView: View {
     @EnvironmentObject var lvm: LoginViewModel
-    @StateObject private var locationManager = LocationManager()
-    @StateObject private var tvm = TimerViewModel()
-    @State private var message: String = ""
-    @State private var isPaused: Bool = false
-    @State private var isEntryCompleted: Bool = false
-    @StateObject private var userViewModel = UserViewModel()
+    @StateObject private var lm = LocationManager()
+    @StateObject private var uvm = UserViewModel()
+    @StateObject private var mvm = MainViewModel()
+    
     let fu = FirebaseUtils.shared
-
+    
     var body: some View {
         NavigationStack {
             VStack {
                 Spacer()
                 
-                Text("Horas trabalhadas:")
-                    .font(.title2)
-                
-                TimerView(viewModel: tvm)
+                ZStack {
+                    VStack(spacing: 10) {
+                        if !mvm.isEntryCompleted && !mvm.isExitCompleted {
+                            Text("Bem-vindo(a), \(uvm.nomeUsuario)!")
+                                .font(.headline)
+                                .padding(.bottom, 5)
+                            Text("Não esqueça de bater seu ponto.")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
+                        if let entryTime = mvm.entryTime {
+                            HStack {
+                                Image(systemName: "clock")
+                                Text("Entrada: \(entryTime, formatter: timeFormatter)")
+                                    .font(.body)
+                                    .bold()
+                            }
+                        }
+                        if let exitTime = mvm.exitTime {
+                            HStack {
+                                Image(systemName: "clock.fill")
+                                Text("Saída: \(exitTime, formatter: timeFormatter)")
+                                    .font(.body)
+                                    .bold()
+                            }
+                        }
+                    }
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 15)
+                        .stroke(.black, lineWidth: 2))
+                }
                 
                 Spacer()
                 
-                Text(message)
-                
                 BotaoView(texto: "Entrada", simbolo: "play", cor: .verde) {
-                    registrarPonto(tipo: "entrada")
+                    mvm.registrarPonto(tipo: "entrada", locationManager: lm)
                 }
-                .disabled(isEntryCompleted)
+                .disabled(mvm.isEntryCompleted)
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel(Text("Pressione este botão para bater o ponto de entrada"))
                 
                 HStack {
-                    BotaoView(texto: isPaused ? "Retorno" : "Pausa", simbolo: isPaused ? "arrowshape.turn.up.backward" : "pause", cor: isPaused ? .amarelo : .azul) {
-                        if isPaused {
-                            registrarPonto(tipo: "retorno")
+                    BotaoView(texto: mvm.isPaused ? "Retorno" : "Pausa", simbolo: mvm.isPaused ? "arrowshape.turn.up.backward" : "pause", cor: mvm.isPaused ? .amarelo : .azul) {
+                        if mvm.isPaused {
+                            mvm.registrarPonto(tipo: "retorno", locationManager: lm)
                         } else {
-                            registrarPonto(tipo: "pausa")
+                            mvm.registrarPonto(tipo: "pausa", locationManager: lm)
                         }
                     }
-                    .disabled(!isEntryCompleted)
+                    .disabled(!mvm.isEntryCompleted)
                     .accessibilityElement(children: .ignore)
-                    .accessibilityLabel(Text(isPaused ? "Pressione este botão para voltar do intervalo" : "Pressione este botão para dar o intervalo"))
+                    .accessibilityLabel(Text(mvm.isPaused ? "Pressione este botão para voltar do intervalo" : "Pressione este botão para dar o intervalo"))
                     
                     BotaoView(texto: "Saída", simbolo: "stop", cor: .vermelho) {
-                        registrarPonto(tipo: "saída")
+                        mvm.registrarPonto(tipo: "saída", locationManager: lm)
                     }
-                    .disabled(!isEntryCompleted)
+                    .disabled(!mvm.isEntryCompleted)
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(Text("Presione este botão para finalizar o dia"))
                     
                 }
             }
+            .navigationTitle("\(Date(), formatter: dateFormatter)")
             .padding()
-            .onAppear {
-                tvm.checkLastExitTime()
+            .alert(isPresented: $mvm.showAlert) {
+                Alert(title: Text("Mensagem"), message: Text(mvm.message), dismissButton: .default(Text("OK")))
             }
             .toolbar{
                 ToolbarItem(placement: .topBarTrailing){
                     NavigationLink {
-                        PerfilView(userViewModel: userViewModel)
+                        PerfilView(userViewModel: uvm)
                     } label: {
                         Image(systemName: "person.crop.circle")
                             .resizable()
@@ -79,62 +103,22 @@ struct MainView: View {
         }
     }
     
-    func registrarPonto(tipo: String) {
-        let now = Date()
-        
-        guard let location = locationManager.userLocation else {
-            message = "Não foi possível obter a localização."
-            return
-        }
-        
-        guard isLocationAllowed(location) else {
-            message = "Você está fora da zona permitida."
-            return
-        }
-        
-        guard let user = Auth.auth().currentUser else {
-            message = "Usuário não autenticado"
-            return
-        }
-        
-        let uid = user.uid
-        let latitude = location.coordinate.latitude
-        let longitude = location.coordinate.longitude
-        let tempoTotal: TimeInterval? = tipo == "saída" ? tvm.totalTime : nil
-        
-        let pointId = UUID().uuidString // Gerar um identificador único para o ponto
-        
-        // Criar uma instância de Ponto
-        let ponto = Ponto(id: pointId, userId: uid, tipo: tipo, horario: now, latitude: latitude, longitude: longitude)
-        
-        fu.savePointData(ponto) { result in
-            switch result {
-            case .success():
-                message = "Ponto de \(tipo) registrado com sucesso!"
-                if tipo == "entrada" {
-                    isEntryCompleted = true
-                    tvm.startTimer()
-                } else if tipo == "pausa" {
-                    tvm.stopTimer()
-                    isPaused = true
-                } else if tipo == "retorno" {
-                    tvm.startTimer()
-                    isPaused = false
-                } else if tipo == "saída" {
-                    tvm.stopTimer()
-                    isEntryCompleted = false
-                    tvm.setLastTimeExit(Date())
-                }
-            case .failure(let error):
-                message = "Erro ao registrar ponto: \(error.localizedDescription)"
-            }
-        }
+    var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        return formatter
+    }
+    
+    var timeFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter
     }
 }
 
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
+    
+    #Preview {
         MainView()
             .environmentObject(LoginViewModel())
     }
-}
+

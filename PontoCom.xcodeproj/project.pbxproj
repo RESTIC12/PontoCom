@@ -20,13 +20,12 @@
 		3CA353522C643C4B00F3000F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA353512C643C4B00F3000F /* User.swift */; };
 		3CA353542C643C5F00F3000F /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA353532C643C5F00F3000F /* UserViewModel.swift */; };
 		3CA353562C64407F00F3000F /* GestorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA353552C64407F00F3000F /* GestorView.swift */; };
-		3CA619382C5C38020028091D /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA619372C5C38020028091D /* TimerViewModel.swift */; };
-		3CA6193A2C5C382D0028091D /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA619392C5C382D0028091D /* TimerView.swift */; };
 		3CAD82BA2C65813800E26F57 /* PontosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAD82B92C65813800E26F57 /* PontosView.swift */; };
 		3CAD82BC2C65816F00E26F57 /* PontosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAD82BB2C65816F00E26F57 /* PontosViewModel.swift */; };
 		3CB473FB2C505340000B64BA /* FirebaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB473FA2C505340000B64BA /* FirebaseUtils.swift */; };
 		3CB473FE2C5067A7000B64BA /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB473FD2C5067A7000B64BA /* LocationManager.swift */; };
 		3CB474012C506B2E000B64BA /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB474002C506B2E000B64BA /* RootView.swift */; };
+		3CE1B1752C6ECD87006B236C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE1B1742C6ECD87006B236C /* MainViewModel.swift */; };
 		3CE4FCD32C6183DA00F12D99 /* Ponto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4FCD22C6183DA00F12D99 /* Ponto.swift */; };
 		3CF62C8E2C584F47005B604D /* Geofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF62C8D2C584F47005B604D /* Geofence.swift */; };
 		3CF62C912C59A8E7005B604D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF62C902C59A8E7005B604D /* LoginViewModel.swift */; };
@@ -55,13 +54,12 @@
 		3CA353512C643C4B00F3000F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3CA353532C643C5F00F3000F /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		3CA353552C64407F00F3000F /* GestorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestorView.swift; sourceTree = "<group>"; };
-		3CA619372C5C38020028091D /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
-		3CA619392C5C382D0028091D /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		3CAD82B92C65813800E26F57 /* PontosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PontosView.swift; sourceTree = "<group>"; };
 		3CAD82BB2C65816F00E26F57 /* PontosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PontosViewModel.swift; sourceTree = "<group>"; };
 		3CB473FA2C505340000B64BA /* FirebaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUtils.swift; sourceTree = "<group>"; };
 		3CB473FD2C5067A7000B64BA /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		3CB474002C506B2E000B64BA /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		3CE1B1742C6ECD87006B236C /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		3CE4FCD22C6183DA00F12D99 /* Ponto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ponto.swift; sourceTree = "<group>"; };
 		3CF62C8D2C584F47005B604D /* Geofence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geofence.swift; sourceTree = "<group>"; };
 		3CF62C902C59A8E7005B604D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -147,7 +145,6 @@
 				3CA353552C64407F00F3000F /* GestorView.swift */,
 				3CAD82B92C65813800E26F57 /* PontosView.swift */,
 				3CA0F5DF2C4F06C000E49629 /* BotaoView.swift */,
-				3CA619392C5C382D0028091D /* TimerView.swift */,
 				80D2CF2B2C618E670011922B /* PerfilView.swift */,
 				80C700152C66BD6600B9905C /* CalendarioView.swift */,
 				CE68EBB82C642454008FC6C6 /* JustificarFaltasView.swift */,
@@ -172,10 +169,10 @@
 			children = (
 				CEB9173C2C5C66F100B759DE /* SplashViewModel.swift */,
 				3CF62C902C59A8E7005B604D /* LoginViewModel.swift */,
-				3CA619372C5C38020028091D /* TimerViewModel.swift */,
 				3CA353532C643C5F00F3000F /* UserViewModel.swift */,
 				3CAD82BB2C65816F00E26F57 /* PontosViewModel.swift */,
 				CE68EBB62C6423F6008FC6C6 /* JustificarViewModel.swift */,
+				3CE1B1742C6ECD87006B236C /* MainViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -282,7 +279,6 @@
 				CEB9173A2C5C665500B759DE /* SplashUIState.swift in Sources */,
 				CE68EBB92C642454008FC6C6 /* JustificarFaltasView.swift in Sources */,
 				CEB9173F2C5C693100B759DE /* SplashViewRouter.swift in Sources */,
-				3CA6193A2C5C382D0028091D /* TimerView.swift in Sources */,
 				3CAD82BC2C65816F00E26F57 /* PontosViewModel.swift in Sources */,
 				80C700162C66BD6600B9905C /* CalendarioView.swift in Sources */,
 				3C2FEDE52C4B24F100A925A9 /* MainView.swift in Sources */,
@@ -297,6 +293,7 @@
 				80D2CF2C2C618E670011922B /* PerfilView.swift in Sources */,
 				CE68EBB72C6423F6008FC6C6 /* JustificarViewModel.swift in Sources */,
 				3CA619382C5C38020028091D /* TimerViewModel.swift in Sources */,
+				3CE1B1752C6ECD87006B236C /* MainViewModel.swift in Sources */,
 				3CA353522C643C4B00F3000F /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

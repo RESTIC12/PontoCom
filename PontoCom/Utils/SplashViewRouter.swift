@@ -8,7 +8,6 @@
 import SwiftUI
 
 enum SplashViewRouter{
-    
     static func makeSignInView() -> some View{
         let viewModel = LoginViewModel()
         return RootView(viewModel: viewModel)
