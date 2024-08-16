@@ -1,15 +1,11 @@
 import SwiftUI
 import FirebaseFirestore
-import FirebaseStorage
-
-
-
-    
 
     struct PerfilView: View {
         
         @State var shouldShowImagePicker = false
         @State var image: UIImage?
+        @ObservedObject var userViewModel: UserViewModel
         
         var body: some View {
             
@@ -20,16 +16,16 @@ import FirebaseStorage
                 //
                 //                }
                 VStack(spacing: 16){
-//                    Image("2D")
-//                        .resizable()
-//                        .aspectRatio(contentMode: .fill)
-//                        .frame(width: 200, height: 200)
-//                        .clipShape(Circle())
-//                        .clipped()
-//                        .padding(.top, 44)
-//                    Label("Levi Soares", systemImage: "person").font(.system(size: 20)).bold().foregroundColor(.blue)
-//                        .padding(.top, 12)
-//                        .cornerRadius(10)
+                    //                    Image("2D")
+                    //                        .resizable()
+                    //                        .aspectRatio(contentMode: .fill)
+                    //                        .frame(width: 200, height: 200)
+                    //                        .clipShape(Circle())
+                    //                        .clipped()
+                    //                        .padding(.top, 44)
+                    //                    Label("Levi Soares", systemImage: "person").font(.system(size: 20)).bold().foregroundColor(.blue)
+                    //                        .padding(.top, 12)
+                    //                        .cornerRadius(10)
                     Text("Foto de perfil")
                     
                     Button {
@@ -50,7 +46,7 @@ import FirebaseStorage
                                 .padding()
                                 .foregroundColor(Color(.label))
                             
-                    }
+                        }
                         .overlay(RoundedRectangle(cornerRadius: 64).stroke(Color.black, lineWidth: 3))
                     }
                     
@@ -58,38 +54,39 @@ import FirebaseStorage
                     
                 }
                 
-                NavigationLink(destination: EditarInformacoesView()) {
-        //                    Label("Editar informacoes", systemImage: "pencil.and.list.clipboard")
-        //                        .padding()
-        //                        .foregroundColor(.black)
-        //                        .background(Color.green)
-        //                        .cornerRadius(10)
-        //                        .opacity(0.8)
-        //                }
-        //
-        //                NavigationLink(destination: JustificarFaltasView()) {
-        //                    Label("Justificar faltas", systemImage: "doc.questionmark")
-        //                        .padding()
-        //                        .foregroundColor(.black)
-        //                        .background(Color.red)
-        //                        .cornerRadius(10)
-        //                        .opacity(0.8)
-        //                }
-
-                        NavigationLink(destination: CalendarioView(userViewModel: userViewModel)) {
-                            Label("Historico", systemImage: "calendar")
-                                .padding()
-                                .foregroundColor(.black)
-                                .background(.blue)
-                                .opacity(0.7)
-                                .cornerRadius(10)
-                                .padding()
-                        }
-            .navigationViewStyle(StackNavigationViewStyle())
-            .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil){
-                ImagePickerView(image: $image)
+                NavigationLink(destination: JustificarFaltasView()) {
+                                        Label("Justificar Faltas", systemImage: "pencil.and.list.clipboard")
+                                            .padding()
+                                            .foregroundColor(.black)
+                                            .background(Color.green)
+                                            .cornerRadius(10)
+                                            .opacity(0.8)
+                                    }
+                    //
+                    //                NavigationLink(destination: JustificarFaltasView()) {
+                    //                    Label("Justificar faltas", systemImage: "doc.questionmark")
+                    //                        .padding()
+                    //                        .foregroundColor(.black)
+                    //                        .background(Color.red)
+                    //                        .cornerRadius(10)
+                    //                        .opacity(0.8)
+                    //                }
+                    
+                    NavigationLink(destination: CalendarioView(userViewModel: userViewModel)) {
+                        Label("Historico", systemImage: "calendar")
+                            .padding()
+                            .foregroundColor(.black)
+                            .background(.blue)
+                            .opacity(0.7)
+                            .cornerRadius(10)
+                            .padding()
+                    }
+                    .navigationViewStyle(StackNavigationViewStyle())
+                    .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil){
+                        ImagePickerView(image: $image)
+                    }
+                }
             }
         }
-        
-    }
+
 

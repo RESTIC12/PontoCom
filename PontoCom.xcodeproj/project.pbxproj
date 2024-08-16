@@ -31,6 +31,7 @@
 		3CF62C912C59A8E7005B604D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF62C902C59A8E7005B604D /* LoginViewModel.swift */; };
 		80C700162C66BD6600B9905C /* CalendarioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C700152C66BD6600B9905C /* CalendarioView.swift */; };
 		80D2CF2C2C618E670011922B /* PerfilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D2CF2B2C618E670011922B /* PerfilView.swift */; };
+		CE0ADA822C70104E00F66746 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0ADA812C70104E00F66746 /* ImagePickerView.swift */; };
 		CE0FF4922C65823D009BA4A2 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CE0FF4912C65823D009BA4A2 /* FirebaseStorage */; };
 		CE6838A22C6ACBB7009FDE79 /* Justificar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6838A12C6ACBB7009FDE79 /* Justificar.swift */; };
 		CE68EBB72C6423F6008FC6C6 /* JustificarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE68EBB62C6423F6008FC6C6 /* JustificarViewModel.swift */; };
@@ -65,6 +66,7 @@
 		3CF62C902C59A8E7005B604D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		80C700152C66BD6600B9905C /* CalendarioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarioView.swift; sourceTree = "<group>"; };
 		80D2CF2B2C618E670011922B /* PerfilView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfilView.swift; sourceTree = "<group>"; };
+		CE0ADA812C70104E00F66746 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		CE6838A12C6ACBB7009FDE79 /* Justificar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Justificar.swift; sourceTree = "<group>"; };
 		CE68EBB62C6423F6008FC6C6 /* JustificarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustificarViewModel.swift; sourceTree = "<group>"; };
 		CE68EBB82C642454008FC6C6 /* JustificarFaltasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustificarFaltasView.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				80D2CF2B2C618E670011922B /* PerfilView.swift */,
 				80C700152C66BD6600B9905C /* CalendarioView.swift */,
 				CE68EBB82C642454008FC6C6 /* JustificarFaltasView.swift */,
+				CE0ADA812C70104E00F66746 /* ImagePickerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -290,9 +293,9 @@
 				3CF62C912C59A8E7005B604D /* LoginViewModel.swift in Sources */,
 				3CE4FCD32C6183DA00F12D99 /* Ponto.swift in Sources */,
 				3C46480C2C4B163A00B914D3 /* PontoComApp.swift in Sources */,
+				CE0ADA822C70104E00F66746 /* ImagePickerView.swift in Sources */,
 				80D2CF2C2C618E670011922B /* PerfilView.swift in Sources */,
 				CE68EBB72C6423F6008FC6C6 /* JustificarViewModel.swift in Sources */,
-				3CA619382C5C38020028091D /* TimerViewModel.swift in Sources */,
 				3CE1B1752C6ECD87006B236C /* MainViewModel.swift in Sources */,
 				3CA353522C643C4B00F3000F /* User.swift in Sources */,
 			);
