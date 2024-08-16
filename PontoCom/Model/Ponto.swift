@@ -6,13 +6,9 @@
 //
 
 import Foundation
-import FirebaseFirestore
 
 struct Ponto: Identifiable, Codable {
-    var id: String
-    var userId: String
+    var id: String { UUID().uuidString }
     var tipo: String
     var horario: Date
-    var latitude: Double
-    var longitude: Double
 }

@@ -157,13 +157,9 @@ class FirebaseUtils {
             return
         }
 
-        db.collection("users").document(uid).collection("pontos").document(ponto.id).setData([
-            "id": ponto.id,
-            "userId": ponto.userId,
+        db.collection("users").document(uid).collection("pontos").addDocument(data: [
             "tipo": ponto.tipo,
             "horario": Timestamp(date: ponto.horario),
-            "latitude": ponto.latitude,
-            "longitude": ponto.longitude
         ]) { error in
             if let error = error {
                 completion(.failure(error))
@@ -187,14 +183,10 @@ class FirebaseUtils {
             
             let points = documents.compactMap { queryDocumentSnapshot -> Ponto? in
                 let data = queryDocumentSnapshot.data()
-                let id = queryDocumentSnapshot.documentID
-                let userId = data["userId"] as? String ?? ""
                 let tipo = data["tipo"] as? String ?? ""
                 let horario = (data["horario"] as? Timestamp)?.dateValue() ?? Date()
-                let latitude = data["latitude"] as? Double ?? 0
-                let longitude = data["longitude"] as? Double ?? 0
                 
-                return Ponto(id: id, userId: userId, tipo: tipo, horario: horario, latitude: latitude, longitude: longitude)
+                return Ponto(tipo: tipo, horario: horario)
             }
             completion(.success(points))
         }
