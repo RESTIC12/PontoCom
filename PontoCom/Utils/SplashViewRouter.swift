@@ -11,7 +11,6 @@ enum SplashViewRouter{
     
     static func makeSignInView() -> some View{
         let viewModel = LoginViewModel()
-        //return SignInView(viewModel: viewModel)
         return RootView(viewModel: viewModel)
     }
 }
