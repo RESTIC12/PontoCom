@@ -11,6 +11,7 @@ import FirebaseAuth
 
 class MainViewModel: ObservableObject {
     @Published var message: String = ""
+    @Published var showAlert = false
     @Published var isPaused: Bool = false
     @Published var isEntryCompleted: Bool = false
     @Published var isExitCompleted: Bool = false
@@ -38,6 +39,21 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    private func checkIfNewDay() {
+        guard let lastEntryTime = entryTime else { return }
+        if !Calendar.current.isDateInToday(lastEntryTime) {
+            resetDay()
+        }
+    }
+
+    private func resetDay() {
+        isEntryCompleted = false
+        isExitCompleted = false
+        entryTime = nil
+        exitTime = nil
+        saveState()
+    }
+    
     func registrarPonto(tipo: String, locationManager: LocationManager) {
         let now = Date()
         
@@ -63,9 +79,11 @@ class MainViewModel: ObservableObject {
             switch result {
             case .success():
                 self.message = "Ponto de \(tipo) registrado com sucesso!"
+                self.showAlert = true
                 self.updateState(for: tipo, at: now)
             case .failure(let error):
                 self.message = "Erro ao registrar ponto: \(error.localizedDescription)"
+                self.showAlert = true
             }
         }
     }
@@ -80,7 +98,6 @@ class MainViewModel: ObservableObject {
         case "retorno":
             isPaused = false
         case "saída":
-            isEntryCompleted = false
             isExitCompleted = true
             exitTime = date
         default:

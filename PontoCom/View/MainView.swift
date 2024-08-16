@@ -16,23 +16,45 @@ struct MainView: View {
     @StateObject private var mvm = MainViewModel()
     
     let fu = FirebaseUtils.shared
-
+    
     var body: some View {
         NavigationStack {
             VStack {
                 Spacer()
                 
-                // Data e Horários
-                if let entryTime = mvm.entryTime {
-                    Text("Entrada: \(entryTime, formatter: timeFormatter)")
-                }
-                if let exitTime = mvm.exitTime {
-                    Text("Saída: \(exitTime, formatter: timeFormatter)")
+                ZStack {
+                    VStack(spacing: 10) {
+                        if !mvm.isEntryCompleted && !mvm.isExitCompleted {
+                            Text("Bem-vindo(a), \(uvm.nomeUsuario)!")
+                                .font(.headline)
+                                .padding(.bottom, 5)
+                            Text("Não esqueça de bater seu ponto.")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
+                        if let entryTime = mvm.entryTime {
+                            HStack {
+                                Image(systemName: "clock")
+                                Text("Entrada: \(entryTime, formatter: timeFormatter)")
+                                    .font(.body)
+                                    .bold()
+                            }
+                        }
+                        if let exitTime = mvm.exitTime {
+                            HStack {
+                                Image(systemName: "clock.fill")
+                                Text("Saída: \(exitTime, formatter: timeFormatter)")
+                                    .font(.body)
+                                    .bold()
+                            }
+                        }
+                    }
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 15)
+                        .stroke(.black, lineWidth: 2))
                 }
                 
                 Spacer()
-                
-                Text(mvm.message)
                 
                 BotaoView(texto: "Entrada", simbolo: "play", cor: .verde) {
                     mvm.registrarPonto(tipo: "entrada", locationManager: lm)
@@ -64,6 +86,9 @@ struct MainView: View {
             }
             .navigationTitle("\(Date(), formatter: dateFormatter)")
             .padding()
+            .alert(isPresented: $mvm.showAlert) {
+                Alert(title: Text("Mensagem"), message: Text(mvm.message), dismissButton: .default(Text("OK")))
+            }
             .toolbar{
                 ToolbarItem(placement: .topBarTrailing){
                     NavigationLink {
@@ -83,7 +108,7 @@ struct MainView: View {
         formatter.dateStyle = .short
         return formatter
     }
-
+    
     var timeFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
@@ -91,8 +116,9 @@ struct MainView: View {
     }
 }
 
-#Preview {
-    MainView()
-        .environmentObject(LoginViewModel())
-}
+    
+    #Preview {
+        MainView()
+            .environmentObject(LoginViewModel())
+    }
 
