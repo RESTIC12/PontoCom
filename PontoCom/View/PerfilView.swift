@@ -53,7 +53,7 @@ import FirebaseFirestore
                     Spacer()
                     
                 }
-                
+
                 NavigationLink(destination: JustificarFaltasView()) {
                                         Label("Justificar Faltas", systemImage: "pencil.and.list.clipboard")
                                             .padding()
