@@ -17,5 +17,16 @@ struct Geofence {
     }
 }
 
-let allowedZone = Geofence(center: CLLocationCoordinate2D(latitude: -3.7447296633620395, longitude: -38.53674315233693), radius: 100)
-// Zona permitida: Lab do IFCE, com raio de 100 metros
+let allowedZones = [
+    Geofence(center: CLLocationCoordinate2D(latitude: -3.7447296633620395, longitude: -38.53674315233693), radius: 100),
+    Geofence(center: CLLocationCoordinate2D(latitude: -3.7485283360097212, longitude: -38.52773083148533), radius: 100)
+ ]
+
+func isLocationAllowed(_ location: CLLocation) -> Bool {
+    for zone in allowedZones {
+        if zone.contains(location) {
+            return true
+        }
+    }
+    return false
+}

@@ -7,13 +7,16 @@
 
 import SwiftUI
 import CoreLocation
+import FirebaseAuth
 
 struct MainView: View {
+    @EnvironmentObject var lvm: LoginViewModel
     @StateObject private var locationManager = LocationManager()
     @StateObject private var tvm = TimerViewModel()
     @State private var message: String = ""
     @State private var isPaused: Bool = false
     @State private var isEntryCompleted: Bool = false
+    @StateObject private var userViewModel = UserViewModel()
     let fu = FirebaseUtils.shared
 
     var body: some View {
@@ -65,7 +68,7 @@ struct MainView: View {
             .toolbar{
                 ToolbarItem(placement: .topBarTrailing){
                     NavigationLink {
-                        PerfilView()
+                        PerfilView(userViewModel: userViewModel)
                     } label: {
                         Image(systemName: "person.crop.circle")
                             .resizable()
@@ -84,16 +87,27 @@ struct MainView: View {
             return
         }
         
-        guard allowedZone.contains(location) else {
+        guard isLocationAllowed(location) else {
             message = "Você está fora da zona permitida."
             return
         }
-                
+        
+        guard let user = Auth.auth().currentUser else {
+            message = "Usuário não autenticado"
+            return
+        }
+        
+        let uid = user.uid
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
         let tempoTotal: TimeInterval? = tipo == "saída" ? tvm.totalTime : nil
         
-        fu.savePointData(tipo: tipo, horario: now, latitude: latitude, longitude: longitude, tempoTotal: tempoTotal) { result in
+        let pointId = UUID().uuidString // Gerar um identificador único para o ponto
+        
+        // Criar uma instância de Ponto
+        let ponto = Ponto(id: pointId, userId: uid, tipo: tipo, horario: now, latitude: latitude, longitude: longitude)
+        
+        fu.savePointData(ponto) { result in
             switch result {
             case .success():
                 message = "Ponto de \(tipo) registrado com sucesso!"
@@ -118,6 +132,9 @@ struct MainView: View {
     }
 }
 
-#Preview {
-    MainView()
+struct MainView_Previews: PreviewProvider {
+    static var previews: some View {
+        MainView()
+            .environmentObject(LoginViewModel())
+    }
 }
