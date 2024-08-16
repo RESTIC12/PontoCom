@@ -53,15 +53,15 @@ import FirebaseFirestore
                     Spacer()
                     
                 }
-                
-//                NavigationLink(destination: EditarInformacoesView()) {
-                    //                    Label("Editar informacoes", systemImage: "pencil.and.list.clipboard")
-                    //                        .padding()
-                    //                        .foregroundColor(.black)
-                    //                        .background(Color.green)
-                    //                        .cornerRadius(10)
-                    //                        .opacity(0.8)
-                    //                }
+
+                NavigationLink(destination: JustificarFaltasView()) {
+                                        Label("Justificar Faltas", systemImage: "pencil.and.list.clipboard")
+                                            .padding()
+                                            .foregroundColor(.black)
+                                            .background(Color.green)
+                                            .cornerRadius(10)
+                                            .opacity(0.8)
+                                    }
                     //
                     //                NavigationLink(destination: JustificarFaltasView()) {
                     //                    Label("Justificar faltas", systemImage: "doc.questionmark")

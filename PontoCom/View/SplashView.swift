@@ -21,6 +21,7 @@ struct SplashView: View {
                 //navegar para proxima tela
              case .goToHomeScreen:
                 Text("carregando tela principal")
+                
                 //navegar para proxima tela
              case .error(let msg):
                 loadingView(error: msg)
