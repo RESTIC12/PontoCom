@@ -106,13 +106,6 @@ struct LoginView: View {
                 .textFieldStyle(.roundedBorder)
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel(Text("Preencha com seu CPF"))
-                .onChange(of: viewModel.cpf) { oldValue, newValue in
-                    if !viewModel.validateCPF(cpf: newValue) {
-                        viewModel.errorMessage = "CPF inválido."
-                    } else {
-                        viewModel.errorMessage = ""
-                    }
-                }
             
             TextField("Email", text: $viewModel.email)
                 .keyboardType(.emailAddress)
