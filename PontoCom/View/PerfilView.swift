@@ -32,6 +32,8 @@ struct PerfilView: View {
                     }
                     .overlay(RoundedRectangle(cornerRadius: 64).stroke(Color.black, lineWidth: 3))
                 }
+              .accessibilityElement(children: .ignore)
+              .accessibilityLabel(Text("Selecione para mudar sua foto de perfil"))
                 Spacer()
             }
             
@@ -42,7 +44,10 @@ struct PerfilView: View {
                     .background(Color.green)
                     .cornerRadius(10)
                     .opacity(0.8)
+                    .padding()
             }
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(Text("Selecione para justificar suas Faltas"))
             
             NavigationLink(destination: CalendarioView(userViewModel: userViewModel)) {
                 Label("Historico", systemImage: "calendar")
@@ -53,6 +58,8 @@ struct PerfilView: View {
                     .cornerRadius(10)
                     .padding()
             }
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(Text("Selecione para consultar seu histórico de pontos"))
             .navigationViewStyle(StackNavigationViewStyle())
             .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil){
                 ImagePickerView(image: $image)

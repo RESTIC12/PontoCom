@@ -10,8 +10,8 @@ import SwiftUI
 struct JustificarFaltasView: View {
     @StateObject private var viewModel = JustificarViewModel()
     @State private var showFilePicker = false
-    @State private var reasons = ["Doença", "Acidente", "Consulta Médica", "Outro"]
-    @State private var selectedReason = "Doença"
+    @State private var reasons = ["Licença Médica", "Licença maternidade/paternidade", "Faltas Legais", "Falecimento de familiar", "Outros"]
+   @State private var selectedReason = "Licença Médica"
     
     var body: some View {
         NavigationView {

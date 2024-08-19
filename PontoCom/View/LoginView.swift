@@ -15,7 +15,13 @@ struct LoginView: View {
     var body: some View {
         VStack {
             Group {
-                Text("PontoC") + Text("o").foregroundStyle(.verde) + Text("m.")
+                Image("logo")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(maxWidth: 250, maxHeight: 250)
+                    .padding(20)
+                    .background(Color.white)
+                    .ignoresSafeArea()
             }
             .font(.title)
             .accessibilityElement(children: .ignore)
