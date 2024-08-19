@@ -36,7 +36,7 @@ extension SplashView{
             Image("logo")
                 .resizable()
                 .scaledToFill()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(maxWidth: 250, maxHeight: 250)
                 .padding(20)
                 .background(Color.white)
                 .ignoresSafeArea()

@@ -61,7 +61,10 @@ import FirebaseFirestore
                                             .background(Color.green)
                                             .cornerRadius(10)
                                             .opacity(0.8)
+                                            .padding()
                                     }
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(Text("Selecione para justificar suas Faltas"))
                     //
                     //                NavigationLink(destination: JustificarFaltasView()) {
                     //                    Label("Justificar faltas", systemImage: "doc.questionmark")
@@ -80,7 +83,10 @@ import FirebaseFirestore
                             .opacity(0.7)
                             .cornerRadius(10)
                             .padding()
+                            
                     }
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(Text("Selecione para consultar seu histórico de pontos"))
                     .navigationViewStyle(StackNavigationViewStyle())
                     .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil){
                         ImagePickerView(image: $image)
