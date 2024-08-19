@@ -105,10 +105,32 @@ class LoginViewModel: ObservableObject {
             return false
         }
         
+        guard validateEmail(email: email) else {
+            errorMessage = "Email inválido."
+            return false
+        }
+            
+        guard validatePassword(password: password) else {
+            errorMessage = "A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma letra minúscula, um número e um caractere especial."
+            return false
+        }
+        
         return true
     }
     
-    func validateCPF(cpf: String) -> Bool {
+    private func validateEmail(email: String) -> Bool {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        return emailPredicate.evaluate(with: email)
+    }
+
+    private func validatePassword(password: String) -> Bool {
+        let passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@!%&*?])[A-Za-z\\d#$@!%&*?]{8,}$"
+        let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
+        return passwordPredicate.evaluate(with: password)
+    }
+    
+    private func validateCPF(cpf: String) -> Bool {
         let numbers = cpf.compactMap({ Int(String($0)) })
         guard numbers.count == 11 && Set(numbers).count != 1 else { return false }
         

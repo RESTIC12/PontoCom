@@ -87,7 +87,7 @@ struct MainView: View {
             .navigationTitle("\(Date(), formatter: dateFormatter)")
             .padding()
             .alert(isPresented: $mvm.showAlert) {
-                Alert(title: Text("Mensagem"), message: Text(mvm.message), dismissButton: .default(Text("OK")))
+                Alert(title: Text(""), message: Text(mvm.message), dismissButton: .default(Text("OK")))
             }
             .toolbar{
                 ToolbarItem(placement: .topBarTrailing){
