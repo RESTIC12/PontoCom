@@ -18,8 +18,8 @@ struct LoginView: View {
                 Image("logo")
                     .resizable()
                     .scaledToFill()
-                    .frame(maxWidth: 250, maxHeight: 250)
-                    .padding(20)
+                    .frame(maxWidth: 200, maxHeight: 200)
+                    .padding(10)
                     .background(Color.white)
                     .ignoresSafeArea()
             }
@@ -32,6 +32,7 @@ struct LoginView: View {
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel(Text("A credencial de autenticação fornecida está incorreta ou expirou"))
                 .padding(.top, 10)
+                .font(.system(size: 15))
             
             if viewModel.isLoginMode {
                 loginForm
